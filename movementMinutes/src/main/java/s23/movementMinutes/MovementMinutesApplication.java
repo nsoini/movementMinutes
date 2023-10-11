@@ -33,6 +33,7 @@ public class MovementMinutesApplication {
 			inteRepository.save(new Intensity("Reipas"));
 			inteRepository.save(new Intensity("Raskas"));
 			
+			moveRepository.save(new Movement(LocalDate.parse("2021-10-11"), "8.30", "Kävely", 10, "", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
 			moveRepository.save(new Movement(LocalDate.parse("2021-10-11"), "13.30", "Kävely", 15, "", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
 			moveRepository.save(new Movement(LocalDate.parse("2021-10-11"), "14.30", "Taukovenyttely", 5, "", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
 		
