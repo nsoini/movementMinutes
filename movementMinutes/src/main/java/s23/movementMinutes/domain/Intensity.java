@@ -14,7 +14,7 @@ public class Intensity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long intID;
+	private Long intId;
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "intensity")
@@ -29,12 +29,12 @@ public class Intensity {
 		this.name = name;
 	}
 
-	public Long getIntID() {
-		return intID;
+	public Long getIntId() {
+		return intId;
 	}
 
-	public void setIntID(Long intID) {
-		this.intID = intID;
+	public void setIntId(Long intId) {
+		this.intId = intId;
 	}
 
 	public String getName() {

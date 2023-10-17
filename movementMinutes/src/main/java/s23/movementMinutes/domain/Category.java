@@ -21,6 +21,7 @@ public class Category {
 	private List<Movement> movements;
 	
 	public Category() {
+		super();
 		
 	}
 

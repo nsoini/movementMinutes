@@ -1,6 +1,6 @@
 package s23.movementMinutes;
 
-import java.time.LocalDate;
+
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import s23.movementMinutes.domain.Category;
 import s23.movementMinutes.domain.CategoryRepository;
 import s23.movementMinutes.domain.Intensity;
-import s23.movementMinutes.domain.Movement;
 import s23.movementMinutes.domain.MovementRepository;
 import s23.movementMinutes.domain.IntensityRepository;
 
@@ -33,10 +32,7 @@ public class MovementMinutesApplication {
 			inteRepository.save(new Intensity("Reipas"));
 			inteRepository.save(new Intensity("Raskas"));
 			
-			moveRepository.save(new Movement(LocalDate.parse("2021-10-11"), "8.30", "Kävely", 10, "", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
-			moveRepository.save(new Movement(LocalDate.parse("2021-10-11"), "13.30", "Kävely", 15, "", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
-			moveRepository.save(new Movement(LocalDate.parse("2021-10-11"), "14.30", "Taukovenyttely", 5, "", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
-		
+			
 		};
 	}
 

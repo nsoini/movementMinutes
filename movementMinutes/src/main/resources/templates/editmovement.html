@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th = "http://thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Lisää uusi harjoitus</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Muokkaa harjoitusta</title>
 </head>
-
 <body>
-	<h1>Lisää uusi harjoitus</h1>
+	<h1>Muokkaa harjoitusta</h1>
 	<div>
-		<form th:object = "${movement}" th:action = "@{save}" action = "#" method = "post">
+		<form th:object = "${movement}" th:action = "@{/save}" action = "#" method = "post">
+			
+			<input type = "hidden" id = "id" th:field = "*{id}" />
 			
 			<label for = "date">Päivä</label>
 			<input type = "date" id = "date" th:field = "*{date}"/>
@@ -35,10 +35,11 @@
 			
 			<label for = "comment">Fiilis</label>
 			<input type = "text" id = "comment" th:field = "*{comment}"/>
+
 		
-			<input type = "submit" value = "Tallenna"/>
-		
+			<input type = "submit" value = "Tallenna" />
 		</form>
 	</div>
+
 </body>
 </html>

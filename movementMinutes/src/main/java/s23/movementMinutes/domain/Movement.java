@@ -1,8 +1,9 @@
 package s23.movementMinutes.domain;
 
-import java.time.LocalDate;
 
+import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +18,10 @@ public class Movement {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private LocalDate date;
+	
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date date;
+    
 	private String startTime;
 	private String exercise;
 	private int minutes;
@@ -36,7 +40,7 @@ public class Movement {
 	public Movement() {
 	}
 
-	public Movement(LocalDate date, String startTime, String exercise, int minutes, String comment, Category category,
+	public Movement(Date date, String startTime, String exercise, int minutes, String comment, Category category,
 			Intensity intensity) {
 		super();
 		this.date = date;
@@ -57,11 +61,11 @@ public class Movement {
 		this.id = id;
 	}
 
-	public LocalDate getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
