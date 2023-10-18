@@ -17,8 +17,7 @@ public class AppUser {
 	private String passwordHash;
 	private String role;
 
-	public AppUser() {
-		
+	public AppUser() {	
 	}
 	
 	public AppUser(String username, String email, String passwordHash, String role) {
