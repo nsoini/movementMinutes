@@ -34,8 +34,8 @@
 				<td th:text = "${#dates.format(movement.date, 'dd.MM.yyyy')}"></td>
 				<td th:text = "${movement.startTime}"></td>
 				<td th:text = "${movement.exercise}"></td>
-				<td th:text = "${movement.category.name}"></td>
-				<td th:text = "${movement.intensity.name}"></td>
+				<td th:if = "${movement.category != null}" th:text = "${movement.category.name}"></td>
+				<td th:if = "${movement.intensity != null}" th:text = "${movement.intensity.name}"></td>
 				<td th:text = "${movement.minutes}"></td>
 				<td th:text = "${movement.comment}"></td>
 				<td><a th:href = "@{/delete/{id}(id=${movement.id})}" class = "btn btn-danger">Poista</a></td>
@@ -43,13 +43,13 @@
 			</tr>
 		</tbody>
 	</table>
-	<a href = "/add" class ="btn btn-success">Liiketyypit</a>
+	<a href = "/categorylist" class ="btn btn-success">Liiketyypit</a>
 	
 	<div>
 	<h3>Rest:</h3>
 	<a href = "/movements" class ="btn btn-success">Harjoitukset</a>
 	<a href = "/movements" class ="btn btn-success">Liikkeet</a>
-	<a href = "/movements" class ="btn btn-success">Tyypit</a>
+	<a href = "/categories" class ="btn btn-success">Tyypit</a>
 	<a href = "/movements" class ="btn btn-success">Käyttäjät</a>
 	</div>
 

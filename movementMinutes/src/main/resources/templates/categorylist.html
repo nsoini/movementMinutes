@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Liiketyypit</title>
+</head>
+
+<body>
+	<h1>Liiketyypit</h1>
+	
+	<table>
+		<tr th:each = "category : ${categorys}">
+			<td th:text = "${category.name}"></td>
+			<td><a th:href = "@{/catdelete/{id}(id=${category.catId})}" class = "btn btn-danger">Poista</a></td>
+		</tr>
+	</table>
+	
+	<a href = "/catadd" class ="btn btn-success">Lisää liiketyyppi</a>
+	
+	<a href = "/movementlist" class ="btn btn-success">Palaa pääsivulle</a>
+	
+</body>
+</html>

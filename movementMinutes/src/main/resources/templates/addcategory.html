@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Lisää liiketyyppi</title>
+</head>
+
+<body>
+	<h1>Lisää uusi liiketyyppi</h1>
+	<div>
+		<form th:object = "${category}" th:action = "@{catsave}" action = "#" method = "post">
+		
+		<label for = "catname">Liiketyyppi</label>
+		<input type = "text" id = "catname" th:field = "*{name}" />
+		
+		<input type = "submit" value = "Tallenna">
+				
+		</form>
+	</div>
+</body>
+</html>
