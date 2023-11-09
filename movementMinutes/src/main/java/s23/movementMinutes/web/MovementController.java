@@ -32,6 +32,18 @@ public class MovementController {
 	@Autowired
 	private ExerciseRepository exeRepository;
 	
+	//show home page
+	@RequestMapping(value = "/home")
+	public String home( ) {
+		return "/home";
+	}
+	
+	//list all movements
+	@RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	}
+	
 	//list all movements
 	@GetMapping(value = "/movementlist")
 	public String listMovements(Model model) {

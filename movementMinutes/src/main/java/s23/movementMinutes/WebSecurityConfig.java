@@ -34,6 +34,7 @@ public class WebSecurityConfig {
 					.frameOptions(frameOptions -> frameOptions.disable())) //for H2
 			.csrf(csrf -> csrf.disable())   //for H2
 			.formLogin(formLogin -> formLogin
+					.loginPage("/login")
 					.defaultSuccessUrl("/movementlist", true).permitAll()
 			)
 			.logout(logout -> logout.permitAll());
