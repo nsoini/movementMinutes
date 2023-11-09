@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -7,17 +8,39 @@
 </head>
 
 <body>
-	<h1>Tervetuloa nimi!</h1>
+
+<header>
+	<h1>Liike minuutit</h1>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Kirjaudu ulos" /> 
+	</form>
+</header>
+
+
+	<h2>Tervetuloa <span sec:authentication="name"></span>!</h2>
 	
 	<p>Lisää uusi:</p>
-	<a href = "/add" class ="btn btn-success">liikuntalaji</a>
 	<a href = "/add" class ="btn btn-success">harjoitus</a>
 	
 	
-	<h2>Omat liikuntalajit:</h2>
+	
+	<div>
+	
+	<h3>Omat liikuntalajit:</h3>
+	<table>
+		<tbody>
+			<tr th:each = "exercise : ${exercises}">
+			<td th:text = "${exercise.name}"></td>
+		</tbody>
+	</table>
+	
+	<p>Lisää uusi <a href = "/newexercise" class ="btn btn-success">liikuntalaji</a></p>
 	
 	
-	<h2>Liikunta päiväkirja</h2>
+	</div>
+	
+	<div>
+	<h3>Liikunta päiväkirja</h3>
 	
 	<table>
 		<tbody>
@@ -33,24 +56,26 @@
 			<tr th:each = "movement : ${moves}">
 				<td th:text = "${#dates.format(movement.date, 'dd.MM.yyyy')}"></td>
 				<td th:text = "${movement.startTime}"></td>
-				<td th:text = "${movement.exercise}"></td>
+				<td th:text = "${movement.exercise.name}"></td>
 				<td th:if = "${movement.category != null}" th:text = "${movement.category.name}"></td>
 				<td th:if = "${movement.intensity != null}" th:text = "${movement.intensity.name}"></td>
 				<td th:text = "${movement.minutes}"></td>
 				<td th:text = "${movement.comment}"></td>
-				<td><a th:href = "@{/delete/{id}(id=${movement.id})}" class = "btn btn-danger">Poista</a></td>
-				<td><a th:href = "@{/edit/{id}(id=${movement.id})}" class = "btn btn-danger">Muokkaa</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href = "@{/delete/{id}(id=${movement.id})}" class = "btn btn-danger">Poista</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href = "@{/edit/{id}(id=${movement.id})}" class = "btn btn-danger">Muokkaa</a></td>
 			</tr>
 		</tbody>
 	</table>
-	<a href = "/categorylist" class ="btn btn-success">Liiketyypit</a>
+	</div>
 	
-	<div>
+	<p sec:authorize="hasAuthority('ADMIN')"><a href = "/categorylist" class ="btn btn-success">Hallinnoi liiketyyppejä</a></p>
+	
+	<div sec:authorize="hasAuthority('ADMIN')">
 	<h3>Rest:</h3>
 	<a href = "/movements" class ="btn btn-success">Harjoitukset</a>
-	<a href = "/movements" class ="btn btn-success">Liikkeet</a>
+	<a href = "/exercises" class ="btn btn-success">Liikkeet</a>
 	<a href = "/categories" class ="btn btn-success">Tyypit</a>
-	<a href = "/movements" class ="btn btn-success">Käyttäjät</a>
+	<a href = "/appusers" class ="btn btn-success">Käyttäjät</a>
 	</div>
 
 </body>

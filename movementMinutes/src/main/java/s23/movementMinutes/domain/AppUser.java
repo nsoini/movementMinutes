@@ -1,5 +1,6 @@
 package s23.movementMinutes.domain;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,8 +14,11 @@ public class AppUser {
 	private Long id;
 	
 	private String username;
+	
 	private String email;
+	
 	private String passwordHash;
+	
 	private String role;
 
 	public AppUser() {	

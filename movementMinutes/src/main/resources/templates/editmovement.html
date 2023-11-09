@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th = "http://thymeleaf.org">
+<html xmlns:th = "http://thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Muokkaa harjoitusta</title>
@@ -18,7 +19,9 @@
 			<input type = "time" id = "startTime" th:field = "*{startTime}">
 			
 			<label for = "exercise">Liike</label>
-			<input type = "text" id = "exercise" th:field = "*{exercise}"/>
+			<select id = "exercise" th:field = "*{exercise.exerciseId}" class = "form-control">
+			<option th:each = "exercise: ${exercises}" th:value = "${exercise.exerciseId}" th:text = "${exercise.name}"></option>
+			</select>
 			
 			<label for = "catList">Tyyppi</label>
 			<select id = "catList" th:field = "*{category.catId}" class = "form-control">
@@ -40,6 +43,7 @@
 			<input type = "submit" value = "Tallenna" />
 		</form>
 	</div>
+	<a href = "/movementlist" class ="btn btn-success">Palaa pääsivulle tallentamatta</a>
 
 </body>
 </html>

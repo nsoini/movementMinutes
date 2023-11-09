@@ -23,9 +23,13 @@ public class Movement {
     private Date date;
     
 	private String startTime;
-	private String exercise;
 	private int minutes;
 	private String comment;
+	
+	@ManyToOne
+	@JoinColumn(name = "exerciseId")
+	private Exercise exercise;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "categoryId")
@@ -40,7 +44,7 @@ public class Movement {
 	public Movement() {
 	}
 
-	public Movement(Date date, String startTime, String exercise, int minutes, String comment, Category category,
+	public Movement(Date date, String startTime, Exercise exercise, int minutes, String comment, Category category,
 			Intensity intensity) {
 		super();
 		this.date = date;
@@ -77,11 +81,11 @@ public class Movement {
 		this.startTime = startTime;
 	}
 
-	public String getExercise() {
+	public Exercise getExercise() {
 		return exercise;
 	}
 
-	public void setExercise(String exercise) {
+	public void setExercise(Exercise exercise) {
 		this.exercise = exercise;
 	}
 

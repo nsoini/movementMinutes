@@ -9,8 +9,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import s23.movementMinutes.domain.AppUser;
+import s23.movementMinutes.domain.AppUserRepository;
 import s23.movementMinutes.domain.Category;
 import s23.movementMinutes.domain.CategoryRepository;
+import s23.movementMinutes.domain.Exercise;
+import s23.movementMinutes.domain.ExerciseRepository;
 import s23.movementMinutes.domain.Intensity;
 import s23.movementMinutes.domain.MovementRepository;
 import s23.movementMinutes.domain.Movement;
@@ -24,8 +28,12 @@ public class MovementMinutesApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(MovementRepository moveRepository, CategoryRepository catRepository, IntensityRepository inteRepository) {
+	public CommandLineRunner demo(MovementRepository moveRepository, CategoryRepository catRepository, IntensityRepository inteRepository, ExerciseRepository exeRepository, AppUserRepository userRepository) {
 		return (args) -> {
+			userRepository.save(new AppUser("user1", "user1@test.fi", "$2a$10$n92RNo7mvAtFHILGdzsA/Oa1fKuWdIT5pe2VZVSXSnUOsYy35mmr6", "USER"));
+			userRepository.save(new AppUser("user2", "user2@test.fi", "$2a$10$aQqLKZGvhjzQrijtQxp2qeX.hNJiko26NCJ0/.nIC01eJR9tSo7BG", "USER"));
+			userRepository.save(new AppUser("admin", "admin@test.fi", "$2a$10$45kuUqsr1dIvv.ViLupVEOKxSNdY07Ls4pYe1G8MZEK1To95ljQ.y", "ADMIN"));
+			
 			catRepository.save(new Category("Arkiliikunta"));
 			catRepository.save(new Category("Kestävyysliikunta"));
 			catRepository.save(new Category("Lihaskuntoharjoittelu"));
@@ -35,9 +43,13 @@ public class MovementMinutesApplication {
 			inteRepository.save(new Intensity("Reipas"));
 			inteRepository.save(new Intensity("Raskas"));
 			
-			moveRepository.save(new Movement(new Date(), "10.30", "kävely", 15, "ok", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
-			moveRepository.save(new Movement(new Date(), "12.00", "kävely", 30, "kiva", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
-			moveRepository.save(new Movement(new Date(), "18.30", "tanssi", 20, "jee", catRepository.findByName("Kestävyysliikunta").get(0), inteRepository.findByName("Kohtalainen").get(0)));
+			exeRepository.save(new Exercise("Kävely", 5, "test"));
+			exeRepository.save(new Exercise("Uinti", 3, "test"));
+			exeRepository.save(new Exercise("Tennis", 2, "test"));
+			
+			moveRepository.save(new Movement(new Date(), "10.30", exeRepository.findByName("Kävely").get(0), 15, "ok", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
+			moveRepository.save(new Movement(new Date(), "12.00", exeRepository.findByName("Kävely").get(0), 30, "kiva", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
+			moveRepository.save(new Movement(new Date(), "18.30", exeRepository.findByName("Tennis").get(0), 20, "jee", catRepository.findByName("Kestävyysliikunta").get(0), inteRepository.findByName("Kohtalainen").get(0)));
 
 			
 		};
