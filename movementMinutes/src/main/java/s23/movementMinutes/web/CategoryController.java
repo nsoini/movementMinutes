@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import s23.movementMinutes.domain.Category;
 import s23.movementMinutes.domain.CategoryRepository;
 
@@ -28,7 +30,7 @@ public class CategoryController {
 	
 	//delete a category
 	@GetMapping(value = "/catdelete/{catId}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String deleteCategory(@PathVariable("catId") Long catId, Model model) {
 		catRepository.deleteById(catId);
 		return "redirect:/categorylist";
@@ -36,7 +38,7 @@ public class CategoryController {
 	
 	//add a new category
 	@RequestMapping(value = "/catadd")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String addCategory(Model model) {
 		model.addAttribute("category", new Category());
 		return "addcategory";
@@ -45,8 +47,11 @@ public class CategoryController {
 	
 	//save a category
 	@PostMapping(value = "/catsave")
-	@PreAuthorize("hasRole('ADMIN')")
-	public String saveCategory(@ModelAttribute Category category) {
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String saveCategory(@Valid @ModelAttribute Category category, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "addcategory";
+		}
 		catRepository.save(category);
 		return "redirect:/categorylist";
 	}

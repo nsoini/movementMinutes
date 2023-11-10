@@ -8,26 +8,41 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 </head>
 
 <body>
+
+<div class ="col-md-4">
+<p>Olet kirjautunut käyttäjänimellä <span sec:authentication="name"></span></p>
+</div>
+
+<div class = "col-md-4" style="padding: 20px 0">	
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Kirjaudu ulos" /> 
+	</form>
+</div>
+
 	<h1>Lisää uusi liike</h1>
 	
-	<div>
+	<div class="container">
+	<div class="col-md-4">
 		<form th:object = "${exercise}" th:action = "@{/exercisesave}" action = "#" method = "post">
 		
 		<label for = "exename">Nimi</label>
 		<input type = "text" id = "exename" th:field = "*{name}" />
-		
-		<label for = "rating">Arvosana (0-5)</label>
-		<input type = "text" id = "rating" th:field = "*{rating}"/>
+		<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" >
+			<p th:each="${#fields.hasErrors('name')}" th:text="${error}"></p> 
+		</div>
+		<div style="clear: both; display: block; height: 10px;"></div>
 		
 		<label for = "description">Kuvaus</label>
 		<textarea id = "description" th:field = "*{description}" class="form-control" rows="4" cols="50" ></textarea>
+		<div style="clear: both; display: block; height: 10px;"></div>
 		
-		<input type = "submit" value = "Tallenna">
+		<input type = "submit" value = "Tallenna" class="btn btn-primary">
 		
 		</form>
 	</div>
-
+	</div>
+	<div class="col-md-4">
 	<a href = "/movementlist" class ="btn btn-success">Palaa pääsivulle tallentamatta</a>
-	
+	</div>
 </body>
 </html>

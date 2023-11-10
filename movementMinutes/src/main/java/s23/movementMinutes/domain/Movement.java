@@ -11,6 +11,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Movement {
@@ -20,17 +23,21 @@ public class Movement {
 	private Long id;
 	
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @PastOrPresent(message = "Toteutunut liike ei voi olla tulevaisuudessa.")
     private Date date;
     
 	private String startTime;
+	
+	@Min(value = 5, message = "Pienin arvo voi olla 5 minuuttia.")
 	private int minutes;
+	
+	@Size(min = 0, max= 20, message = "Voit käyttää 20 merkkiä." )
 	private String comment;
 	
 	@ManyToOne
 	@JoinColumn(name = "exerciseId")
 	private Exercise exercise;
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name = "categoryId")
 	private Category category;
@@ -38,8 +45,6 @@ public class Movement {
 	@ManyToOne
 	@JoinColumn(name = "intensityId")
 	private Intensity intensity;
-
-
 
 	public Movement() {
 	}

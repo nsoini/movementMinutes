@@ -8,19 +8,26 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 </head>
 
 <body>
+<div class = "container">
 
-<header>
-	<h1>Liike minuutit</h1>
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Kirjaudu ulos" /> 
-	</form>
-</header>
-
-
-	<h2>Tervetuloa <span sec:authentication="name"></span>!</h2>
+	<div class ="col-md-4">
+	 <p>Olet kirjautunut käyttäjänimellä <span sec:authentication="name"></span></p>
+	</div>
 	
-	<p>Lisää uusi:</p>
-	<a href = "/add" class ="btn btn-success">harjoitus</a>
+	<div class = "col-md-4" style="padding: 20px 0">
+	 <h1>Liike minuutit</h1>
+	 <form th:action="@{/logout}" method="post">
+		<input type="submit" value="Kirjaudu ulos" /> 
+	 </form>
+	</div>
+
+	<div class ="col-md-4">
+	 <h2>Tervetuloa <span sec:authentication="name"></span>!</h2>
+	</div>
+	
+	<div class ="col-md-4">
+	 <p>Lisää uusi: <a href = "/add" class ="btn btn-primary">harjoitus</a></p>
+	</div>
 	
 	
 	
@@ -34,15 +41,16 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 		</tbody>
 	</table>
 	
-	<p>Lisää uusi <a href = "/newexercise" class ="btn btn-success">liikuntalaji</a></p>
-	
+	<div class ="col-md-4">
+	<p>Lisää uusi <a href = "/newexercise" class ="btn btn-primary">liikuntalaji</a></p>
+	</div>
 	
 	</div>
 	
 	<div>
 	<h3>Liikunta päiväkirja</h3>
 	
-	<table>
+	<table class="table table-striped">
 		<tbody>
 			<tr>
 				<th>Päivä</th>
@@ -56,13 +64,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 			<tr th:each = "movement : ${moves}">
 				<td th:text = "${#dates.format(movement.date, 'dd.MM.yyyy')}"></td>
 				<td th:text = "${movement.startTime}"></td>
-				<td th:text = "${movement.exercise.name}"></td>
+				<td th:if = "${movement.exercise != null}" th:text = "${movement.exercise.name}"></td>
 				<td th:if = "${movement.category != null}" th:text = "${movement.category.name}"></td>
 				<td th:if = "${movement.intensity != null}" th:text = "${movement.intensity.name}"></td>
 				<td th:text = "${movement.minutes}"></td>
 				<td th:text = "${movement.comment}"></td>
-				<td sec:authorize="hasAuthority('ADMIN')"><a th:href = "@{/delete/{id}(id=${movement.id})}" class = "btn btn-danger">Poista</a></td>
-				<td sec:authorize="hasAuthority('ADMIN')"><a th:href = "@{/edit/{id}(id=${movement.id})}" class = "btn btn-danger">Muokkaa</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href = "@{/delete/{id}(id=${movement.id})}" class = "btn btn-xs btn-danger">Poista</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href = "@{/edit/{id}(id=${movement.id})}" class = "btn btn-xs btn-danger">Muokkaa</a></td>
 			</tr>
 		</tbody>
 	</table>
@@ -77,6 +85,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 	<a href = "/categories" class ="btn btn-success">Tyypit</a>
 	<a href = "/appusers" class ="btn btn-success">Käyttäjät</a>
 	</div>
-
+</div>
 </body>
 </html>

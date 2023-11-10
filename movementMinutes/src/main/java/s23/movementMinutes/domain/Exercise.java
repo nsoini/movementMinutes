@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 public class Exercise {
@@ -18,8 +19,9 @@ public class Exercise {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long exerciseId;
 	
+	@NotEmpty(message="Liikeminuutteja on helpompi tallentaa kun omat lempilajit on nimetty.")
 	private String name;
-	private int rating;
+	
 	private String description;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "exercise")
@@ -30,10 +32,9 @@ public class Exercise {
 		super();
 	}
 
-	public Exercise(String name, int rating, String description) {
+	public Exercise(String name, String description) {
 		super();
 		this.name = name;
-		this.rating = rating;
 		this.description = description;
 	}
 
@@ -53,14 +54,6 @@ public class Exercise {
 		this.name = name;
 	}
 
-	public int getRating() {
-		return rating;
-	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -76,7 +69,5 @@ public class Exercise {
 	public void setMovements(List<Movement> movements) {
 		this.movements = movements;
 	}
-	
-	
 
 }

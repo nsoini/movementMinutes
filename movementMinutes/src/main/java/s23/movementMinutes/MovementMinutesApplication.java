@@ -43,9 +43,9 @@ public class MovementMinutesApplication {
 			inteRepository.save(new Intensity("Reipas"));
 			inteRepository.save(new Intensity("Raskas"));
 			
-			exeRepository.save(new Exercise("Kävely", 5, "test"));
-			exeRepository.save(new Exercise("Uinti", 3, "test"));
-			exeRepository.save(new Exercise("Tennis", 2, "test"));
+			exeRepository.save(new Exercise("Kävely", "test"));
+			exeRepository.save(new Exercise("Uinti", "test"));
+			exeRepository.save(new Exercise("Tennis", "test"));
 			
 			moveRepository.save(new Movement(new Date(), "10.30", exeRepository.findByName("Kävely").get(0), 15, "ok", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
 			moveRepository.save(new Movement(new Date(), "12.00", exeRepository.findByName("Kävely").get(0), 30, "kiva", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));

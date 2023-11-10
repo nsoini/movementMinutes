@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import s23.movementMinutes.domain.CategoryRepository;
 import s23.movementMinutes.domain.ExerciseRepository;
 import s23.movementMinutes.domain.IntensityRepository;
@@ -84,8 +86,15 @@ public class MovementController {
 	
 	//save a movement
 	@PostMapping(value = "/save")
-	public String saveMovement(@ModelAttribute Movement movement) {	
+	public String saveMovement(@Valid @ModelAttribute Movement movement, BindingResult bindingResult, Model model) {	
 		System.out.println("Received date: " + movement.getDate());
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("movement", movement);
+			model.addAttribute("categorys", catRepository.findAll());
+			model.addAttribute("intensitys", inteRepository.findAll());
+			model.addAttribute("exercises", exeRepository.findAll());
+			return "addmovement";
+		}
 		moveRepository.save(movement);
 		return "redirect:/movementlist";
 	}

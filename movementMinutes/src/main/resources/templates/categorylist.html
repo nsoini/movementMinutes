@@ -8,18 +8,28 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 </head>
 
 <body>
+
+<div class ="col-md-4">
+<p>Olet kirjautunut käyttäjänimellä <span sec:authentication="name"></span></p>
+</div>	
+<div class = "col-md-4" style="padding: 20px 0" >	
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Kirjaudu ulos" class="btn btn-primary"/> 
+	</form>
+</div>
+
 	<h1>Liiketyypit</h1>
 	
-	<table>
+	<table class="table table-striped">
 		<tr th:each = "category : ${categorys}">
 			<td th:text = "${category.name}"></td>
-			<td><a th:href = "@{/catdelete/{id}(id=${category.catId})}" class = "btn btn-danger">Poista</a></td>
+			<td><a th:href = "@{/catdelete/{id}(id=${category.catId})}" class="btn btn-xs btn-danger">Poista</a></td>
 		</tr>
 	</table>
-	
+	<div class ="col-md-4">
 	<a href = "/catadd" class ="btn btn-success">Lisää liiketyyppi</a>
 	
 	<a href = "/movementlist" class ="btn btn-success">Palaa pääsivulle</a>
-	
+	</div>
 </body>
 </html>
