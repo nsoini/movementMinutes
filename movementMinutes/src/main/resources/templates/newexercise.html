@@ -5,27 +5,29 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Lisää uusi liikuntalaji</title>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 
 <body>
-
-<div class ="col-md-4">
-<p>Olet kirjautunut käyttäjänimellä <span sec:authentication="name"></span></p>
+<div class ="container" >
+	<div class="row">
+		<div class ="col-md-4">
+	 		<p>Olet kirjautunut käyttäjänimellä <span sec:authentication="name"></span></p>
+	 	</div>
+	 <div class ="col-md-4">
+	 	<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Kirjaudu ulos" class="btn btn-primary"/> 
+	 	</form>	
+	 </div>
+	</div>
 </div>
-
-<div class = "col-md-4" style="padding: 20px 0">	
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Kirjaudu ulos" /> 
-	</form>
-</div>
-
-	<h1>Lisää uusi liike</h1>
-	
 	<div class="container">
+	<h3>Lisää uusi liikuntalaji</h3>
 	<div class="col-md-4">
 		<form th:object = "${exercise}" th:action = "@{/exercisesave}" action = "#" method = "post">
 		
 		<label for = "exename">Nimi</label>
+		<div style="clear: both; display: block;"></div>
 		<input type = "text" id = "exename" th:field = "*{name}" />
 		<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" >
 			<p th:each="${#fields.hasErrors('name')}" th:text="${error}"></p> 
@@ -36,13 +38,11 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 		<textarea id = "description" th:field = "*{description}" class="form-control" rows="4" cols="50" ></textarea>
 		<div style="clear: both; display: block; height: 10px;"></div>
 		
-		<input type = "submit" value = "Tallenna" class="btn btn-primary">
+		<input type = "submit" value = "Tallenna" class="btn btn-success">
+		<a href = "/movementlist" class ="btn btn-info">Palaa pääsivulle tallentamatta</a>
 		
 		</form>
 	</div>
-	</div>
-	<div class="col-md-4">
-	<a href = "/movementlist" class ="btn btn-success">Palaa pääsivulle tallentamatta</a>
 	</div>
 </body>
 </html>

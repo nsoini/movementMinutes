@@ -86,7 +86,7 @@ public class MovementController {
 	
 	//save a movement
 	@PostMapping(value = "/save")
-	public String saveMovement(@Valid @ModelAttribute Movement movement, BindingResult bindingResult, Model model) {	
+	public String saveMovement(@Valid @ModelAttribute("movement") Movement movement, BindingResult bindingResult, Model model) {	
 		System.out.println("Received date: " + movement.getDate());
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("movement", movement);

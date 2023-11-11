@@ -4,25 +4,29 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
 <title>Lisää uusi harjoitus</title>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 
 <body>
-
-<div class ="col-md-4">
-<p>Olet kirjautunut käyttäjänimellä <span sec:authentication="name"></span></p>
-</div> 
-
-<div class = "col-md-4" style="padding: 20px 0">	
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Kirjaudu ulos" /> 
-	</form>
+<div class ="container" >
+	<div class="row">
+		<div class ="col-md-4">
+	 		<p>Olet kirjautunut käyttäjänimellä <span sec:authentication="name"></span></p>
+	 	</div>
+	 <div class ="col-md-4">
+	 	<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Kirjaudu ulos" class="btn btn-primary"/> 
+	 	</form>	
+	 </div>
+	</div>
 </div>
-
-	<h1>Lisää uusi harjoitus</h1>
 	
 	<div class="container">
+	
+	<h3>Lisää uusi harjoitus</h3>
+	
 	<div class="col-md-4">
-		<form th:object = "${movement}" th:action = "@{save}" action = "#" method = "post">
+		<form th:object = "${movement}" th:action = "@{save}" action = "#" method = "post" >
 			
 			<label for = "date">Päivä</label>
 			<input type = "date" id = "date" th:field = "*{date}"/>
@@ -35,7 +39,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 			<input type = "time" id = "startTime" th:field = "*{startTime}"/>
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
-			<label for = "exeList">Liike</label>
+			<label for = "exeList">Liike </label><a href = "/newexercise" class ="btn btn-outline-primary btn-xs">Lisää uusi liike</a>
 			<select id = "exeList" th:field = "*{exercise.exerciseId}" class = "form-control">
 			<option th:each = "exercise: ${exercises}" th:value = "${exercise.exerciseId}" th:text = "${exercise.name}" th:selected="${exercise.exerciseId == movement.exercise.exerciseId}"></option>
 			</select>
@@ -54,6 +58,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 			<label for = "minutes">Minuutit</label>
+			<div style="clear: both; display: block; "></div>
 			<input type = "text" id = "minutes" th:field = "*{minutes}"/>
 			<div th:if="${#fields.hasErrors('minutes')}" th:errors="*{minutes}" >
 				<p th:each="${#fields.hasErrors('minutes')}" th:text="${error}"></p> 
@@ -61,21 +66,18 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 			<label for = "comment">Fiilis</label>
+			<div style="clear: both; display: block; "></div>
 			<input type = "text" id = "comment" th:field = "*{comment}"/>
 			<div th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" >
 				<p th:each="${#fields.hasErrors('comment')}" th:text="${error}"></p> 
 			</div>
 			<div style="clear: both; display: block; height: 10px;"></div>
 		
-			<input type = "submit" value = "Tallenna" class="btn btn-primary"/>
-		
+			<input type = "submit" value = "Tallenna" class="btn btn-success"/>
+			<a href = "/movementlist" class ="btn btn-info">Palaa pääsivulle tallentamatta</a>
+			
 		</form>
 		</div>
 	</div>
-	
-	<div class="col-md-4">
-		<a href = "/movementlist" class ="btn btn-success">Palaa pääsivulle tallentamatta</a>
-		<a href = "/newexercise" class ="btn btn-success">Lisää uusi liike</a>
-		</div>
 </body>
 </html>

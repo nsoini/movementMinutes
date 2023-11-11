@@ -5,23 +5,27 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Lisää liiketyyppi</title>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 
 <body>
-
-<div class ="col-md-4">
- <p>Olet kirjautunut käyttäjänimellä <span sec:authentication="name"></span></p>
+<div class ="container" >
+	<div class="row">
+		<div class ="col-md-4">
+	 		<p>Olet kirjautunut käyttäjänimellä <span sec:authentication="name"></span></p>
+	 	</div>
+	 <div class ="col-md-4">
+	 	<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Kirjaudu ulos" class="btn btn-primary"/> 
+	 	</form>	
+	 </div>
+	</div>
 </div>
 
-<div class = "col-md-4" style="padding: 20px 0">
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Kirjaudu ulos" class="btn btn-primary"/> 
-	</form>
-</div>
-
-	<h1>Lisää uusi liiketyyppi</h1>
-	<div class="container">
-		<div class="col-md-4">
+<div class="container">
+<div class="col-md-4">
+	<h3>Lisää uusi liiketyyppi</h3>
+		
 		<form th:object = "${category}" th:action = "@{catsave}" action = "#" method = "post">
 		
 		<label for = "catname">Liiketyyppi</label>
@@ -32,14 +36,14 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 			<p th:each="${#fields.hasErrors('name')}" th:text="${error}"></p> 
 		</div>
 		
-		<input type = "submit" class="btn btn-primary" value = "Tallenna">
+		<input type = "submit" class="btn btn-success" value = "Tallenna">
+		<a href = "/categorylist" class ="btn btn-info">Palaa liiketyypitsivulle tallentamatta</a>
 				
 		</form>
 		
 		</div>
 	</div>
-	<div class="col-md-4">
-	<a href = "/categorylist" class ="btn btn-success">Palaa liiketyypitsivulle tallentamatta</a>
-	</div>
+	
+	
 </body>
 </html>

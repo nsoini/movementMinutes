@@ -5,11 +5,31 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Minutes of movement</title>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 
 <body>
-	<h1>Tervetuloa!</h1>
-	<a href = "/login" class ="btn btn-success">Kirjaudu sisään</a>
-	<p>Sign up</p>
+<div class="container">
+<div class="col-md-4 col-md-offset-4">
+
+	<div class="text-center">
+	<h2>Liikunta päiväkirja</h2></div>
+	
+	<div style="clear: both; display: block; height: 10px;"></div>
+	<p>Tervetuloa matan kynnyksen Liikunta Päiväkirja - sivulle, 
+	joka kannustaa sinua seuraamaan päivittäistä liikuntaasi 
+	ja motivoimaan kohti parempaa hyvinvointia. 
+	Aloita matka aktiivisempaan elämään nyt!  - ChatGPT </p>
+	
+	<div style="clear: both; display: block; height: 10px;"></div>
+	<div class="text-center">
+	<a href = "/login" class ="btn btn-success" >Kirjaudu sisään</a></div>
+	
+	<div style="clear: both; display: block; height: 10px;"></div>
+	<div class="text-center">
+	<a href = "/signup" class ="btn btn-primary">Liity</a></div>
+	
+</div>
+</div>
 </body>
 </html>

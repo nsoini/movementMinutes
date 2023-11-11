@@ -47,9 +47,9 @@ public class MovementMinutesApplication {
 			exeRepository.save(new Exercise("Uinti", "test"));
 			exeRepository.save(new Exercise("Tennis", "test"));
 			
-			moveRepository.save(new Movement(new Date(), "10.30", exeRepository.findByName("Kävely").get(0), 15, "ok", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
-			moveRepository.save(new Movement(new Date(), "12.00", exeRepository.findByName("Kävely").get(0), 30, "kiva", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
-			moveRepository.save(new Movement(new Date(), "18.30", exeRepository.findByName("Tennis").get(0), 20, "jee", catRepository.findByName("Kestävyysliikunta").get(0), inteRepository.findByName("Kohtalainen").get(0)));
+			moveRepository.save(new Movement(new Date(), "10:30", exeRepository.findByName("Kävely").get(0), 15, "ok", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
+			moveRepository.save(new Movement(new Date(), "12:00", exeRepository.findByName("Kävely").get(0), 30, "kiva", catRepository.findByName("Arkiliikunta").get(0), inteRepository.findByName("Kevyt").get(0)));
+			moveRepository.save(new Movement(new Date(), "18:30", exeRepository.findByName("Tennis").get(0), 20, "jee", catRepository.findByName("Kestävyysliikunta").get(0), inteRepository.findByName("Kohtalainen").get(0)));
 
 			
 		};

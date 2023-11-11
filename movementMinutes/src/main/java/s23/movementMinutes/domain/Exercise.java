@@ -19,7 +19,7 @@ public class Exercise {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long exerciseId;
 	
-	@NotEmpty(message="Liikeminuutteja on helpompi tallentaa kun omat lempilajit on nimetty.")
+	@NotEmpty(message="Anna liikuntalajille nimi, esim. uinti.")
 	private String name;
 	
 	private String description;
