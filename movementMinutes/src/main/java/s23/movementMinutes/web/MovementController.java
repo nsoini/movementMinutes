@@ -54,7 +54,12 @@ public class MovementController {
 	@GetMapping(value = "/movementlist")
 	public String listMovements(Model model, @AuthenticationPrincipal UserDetails currentUser ) {
 		AppUser user = (AppUser) userRepository.findByUsername(currentUser.getUsername());
+		if (currentUser.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
+			model.addAttribute("moves", moveRepository.findAll());
+		}else {
+		
 		model.addAttribute("moves", moveRepository.findByAppuserId(user.getId()));
+		}
 		return "movementlist";
 	}
 	

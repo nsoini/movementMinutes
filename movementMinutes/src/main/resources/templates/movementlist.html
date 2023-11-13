@@ -33,6 +33,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 	<table class="table table-striped">
 		<tbody>
 			<tr>
+				<th sec:authorize="hasAuthority('ADMIN')" >Käyttäjä</th>
 				<th>Päivä</th>
 				<th>Aika</th>
 				<th>Liike</th>
@@ -42,6 +43,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 				<th>Fiilis</th>
 			</tr>
 			<tr th:each = "movement : ${moves}">
+				<td sec:authorize="hasAuthority('ADMIN')" th:text="${movement.appuser.username}" ></td>
 				<td th:text = "${#dates.format(movement.date, 'dd.MM.yyyy')}"></td>
 				<td th:text = "${movement.startTime}"></td>
 				<td th:text = "${movement.exercise}"></td>
