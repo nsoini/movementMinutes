@@ -39,10 +39,11 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 			<input type = "time" id = "startTime" th:field = "*{startTime}"/>
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
-			<label for = "exeList">Liike </label><a href = "/newexercise" class ="btn btn-outline-primary btn-xs">Lisää uusi liike</a>
-			<select id = "exeList" th:field = "*{exercise.exerciseId}" class = "form-control">
-			<option th:each = "exercise: ${exercises}" th:value = "${exercise.exerciseId}" th:text = "${exercise.name}" th:selected="${exercise.exerciseId == movement.exercise.exerciseId}"></option>
-			</select>
+			<label for = "exercise">Liike </label>
+			<div style="clear: both; display: block; "></div>
+			<input type = "text" id = "exercise" th:field = "*{exercise}"/>
+			<div th:if="${#fields.hasErrors('exercise')}" th:errors="*{exercise}" >
+			<p th:each="${#fields.hasErrors('exercise')}" th:text="${error}"></p></div>
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 			<label for = "catList">Tyyppi</label>

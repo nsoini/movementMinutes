@@ -2,6 +2,8 @@ package s23.movementMinutes.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,11 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
+import s23.movementMinutes.domain.AppUserRepository;
 import s23.movementMinutes.domain.CategoryRepository;
-import s23.movementMinutes.domain.ExerciseRepository;
 import s23.movementMinutes.domain.IntensityRepository;
 import s23.movementMinutes.domain.MovementRepository;
 import s23.movementMinutes.domain.Movement;
+import s23.movementMinutes.domain.AppUser;
 
 
 @Controller
@@ -31,8 +34,8 @@ public class MovementController {
 	@Autowired
 	private IntensityRepository inteRepository;
 	
-	@Autowired
-	private ExerciseRepository exeRepository;
+	@Autowired 
+	private AppUserRepository userRepository;
 	
 	//show home page
 	@RequestMapping(value = "/home")
@@ -46,11 +49,12 @@ public class MovementController {
 		return "login";
 	}
 	
+	
 	//list all movements
 	@GetMapping(value = "/movementlist")
-	public String listMovements(Model model) {
-		model.addAttribute("moves", moveRepository.findAll());
-		model.addAttribute("exercises", exeRepository.findAll());
+	public String listMovements(Model model, @AuthenticationPrincipal UserDetails currentUser ) {
+		AppUser user = (AppUser) userRepository.findByUsername(currentUser.getUsername());
+		model.addAttribute("moves", moveRepository.findByAppuserId(user.getId()));
 		return "movementlist";
 	}
 	
@@ -61,7 +65,6 @@ public class MovementController {
 		model.addAttribute("movement", moveRepository.findById(moveId));
 		model.addAttribute("categorys", catRepository.findAll());
 		model.addAttribute("intensitys", inteRepository.findAll());
-		model.addAttribute("exercises", exeRepository.findAll());
 		return "editmovement";
 	}
 	
@@ -79,22 +82,23 @@ public class MovementController {
 	public String addMovement(Model model) {
 		model.addAttribute("movement", new Movement());
 		model.addAttribute("categorys", catRepository.findAll());
-		model.addAttribute("intensitys", inteRepository.findAll());
-		model.addAttribute("exercises", exeRepository.findAll());
+		model.addAttribute("intens"
+				+ "itys", inteRepository.findAll());
 		return "addmovement";
 	}
 	
 	//save a movement
 	@PostMapping(value = "/save")
-	public String saveMovement(@Valid @ModelAttribute("movement") Movement movement, BindingResult bindingResult, Model model) {	
+	public String saveMovement(@Valid @ModelAttribute("movement") Movement movement, BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails currentUser ) {	
 		System.out.println("Received date: " + movement.getDate());
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("movement", movement);
 			model.addAttribute("categorys", catRepository.findAll());
 			model.addAttribute("intensitys", inteRepository.findAll());
-			model.addAttribute("exercises", exeRepository.findAll());
 			return "addmovement";
 		}
+		AppUser user = (AppUser) userRepository.findByUsername(currentUser.getUsername());
+		movement.setAppuser(user);
 		moveRepository.save(movement);
 		return "redirect:/movementlist";
 	}

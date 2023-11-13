@@ -1,10 +1,18 @@
 package s23.movementMinutes.domain;
 
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class AppUser {
@@ -13,13 +21,19 @@ public class AppUser {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Size(min = 3, max=15 , message = "Käyttäjäniemen pitää olla 3-15 merkkiä pitkä." )
 	private String username;
 	
+	@Email
 	private String email;
 	
 	private String passwordHash;
 	
 	private String role;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "appuser")
+	@JsonIgnore
+	private List<Movement> movements;
 
 	public AppUser() {	
 	}
@@ -30,6 +44,14 @@ public class AppUser {
 		this.email = email;
 		this.passwordHash = passwordHash;
 		this.role = role;
+	}
+	
+	public List<Movement> getMovements() {
+		return movements;
+	}
+
+	public void setMovements(List<Movement> movements) {
+		this.movements = movements;
 	}
 	
 	public Long getId() {
@@ -67,6 +89,4 @@ public class AppUser {
 		this.role = role;
 	}
 
-	
-	
 }

@@ -28,29 +28,30 @@ public class Movement {
     
 	private String startTime;
 	
+	private String exercise;
+	
 	@Min(value = 5, message = "Pienin arvo voi olla 5 minuuttia.")
 	private int minutes;
 	
 	@Size(min = 0, max= 20, message = "Voit käyttää 20 merkkiä." )
 	private String comment;
-	
-	@ManyToOne
-	@JoinColumn(name = "exerciseId")
-	private Exercise exercise;
 
 	@ManyToOne
-	@JoinColumn(name = "categoryId")
+	@JoinColumn(name = "user_id")
+	private AppUser appuser;
+	
+	@ManyToOne
+	@JoinColumn(name = "catId")
 	private Category category;
 	
 	@ManyToOne
-	@JoinColumn(name = "intensityId")
+	@JoinColumn(name = "IntId")
 	private Intensity intensity;
 
 	public Movement() {
 	}
 
-	public Movement(Date date, String startTime, Exercise exercise, int minutes, String comment, Category category,
-			Intensity intensity) {
+	public Movement(Date date,String startTime, String exercise, int minutes, String comment, Category category, Intensity intensity, AppUser appuser) {
 		super();
 		this.date = date;
 		this.startTime = startTime;
@@ -59,7 +60,15 @@ public class Movement {
 		this.comment = comment;
 		this.category = category;
 		this.intensity = intensity;
-		
+		this.appuser = appuser;
+	}
+
+	public AppUser getAppuser() {
+		return appuser;
+	}
+
+	public void setAppuser(AppUser appuser) {
+		this.appuser = appuser;
 	}
 
 	public Long getId() {
@@ -86,11 +95,11 @@ public class Movement {
 		this.startTime = startTime;
 	}
 
-	public Exercise getExercise() {
+	public String getExercise() {
 		return exercise;
 	}
 
-	public void setExercise(Exercise exercise) {
+	public void setExercise(String exercise) {
 		this.exercise = exercise;
 	}
 
