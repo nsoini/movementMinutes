@@ -6,12 +6,12 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -19,13 +19,12 @@ public class AppUser {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
 	
-	@Size(min = 3, max=15 , message = "Käyttäjäniemen pitää olla 3-15 merkkiä pitkä." )
+	@Size(min = 3, max=20 , message = "Käyttäjäniemen pitää olla 3-15 merkkiä pitkä." )
+	@Column(name = "username", nullable = false, unique = true)
 	private String username;
-	
-	@Email
-	private String email;
 	
 	private String passwordHash;
 	
@@ -38,10 +37,9 @@ public class AppUser {
 	public AppUser() {	
 	}
 	
-	public AppUser(String username, String email, String passwordHash, String role) {
+	public AppUser(String username, String passwordHash, String role) {
 		super();
 		this.username = username;
-		this.email = email;
 		this.passwordHash = passwordHash;
 		this.role = role;
 	}
@@ -68,13 +66,6 @@ public class AppUser {
 		this.username = username;
 	}
 	
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
 	public String getPasswordHash() {
 		return passwordHash;
 	}
@@ -89,4 +80,11 @@ public class AppUser {
 		this.role = role;
 	}
 
+	@Override
+	public String toString() {
+		return "AppUser [id=" + id + ", username=" + username + ", passwordHash=" + passwordHash + ", role=" + role
+				+ "]";
+	}
+
+	
 }

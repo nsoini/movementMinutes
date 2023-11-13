@@ -10,26 +10,29 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <body>
 <div class ="container" >
+
 	<div class="row">
 		<div class ="col-md-4">
 	 		<p>Olet kirjautunut käyttäjänimellä <span sec:authentication="name"></span></p>
-	 	</div>
+	 	</div> 	
 	 <div class ="col-md-4">
 	 	<form th:action="@{/logout}" method="post">
 			<input type="submit" value="Kirjaudu ulos" class="btn btn-primary"/> 
 	 	</form>	
 	 </div>
 	</div>
+	
 </div>
 
 <div class="container">
-<div class="col-md-4">
-	<h3>Lisää uusi liiketyyppi</h3>
+	<div class="col-md-4">
+		<h3>Lisää uusi liiketyyppi</h3>
 		
 		<form th:object = "${category}" th:action = "@{catsave}" action = "#" method = "post">
 		
 		<label for = "catname">Liiketyyppi</label>
-		<input type = "text" id = "catname" th:field = "*{name}" />
+			<input type = "text" id = "catname" th:field = "*{name}" />
+		
 		<div style="clear: both; display: block; height: 10px;"></div>
 		
 		<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" >
@@ -40,10 +43,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 		<a href = "/categorylist" class ="btn btn-info">Palaa liiketyypitsivulle tallentamatta</a>
 				
 		</form>
-		
-		</div>
 	</div>
-	
-	
+</div>
+
 </body>
 </html>

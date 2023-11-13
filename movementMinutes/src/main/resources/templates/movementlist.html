@@ -9,7 +9,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 </head>
 
 <body>
-
 <div class ="container" >
 	<div class="row">
 		<div class ="col-md-4">
@@ -24,7 +23,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 </div>
 	
 <div class ="container" >
-
 	<h3>Tervetuloa <span sec:authentication="name"></span>!</h3>
 	<a href = "/add" class ="btn btn-success">Lisää uusi päiväkirjamerkintä</a>
 	
@@ -57,15 +55,14 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 		</tbody>
 	</table>
 
-	
 	<p sec:authorize="hasAuthority('ADMIN')"><a href = "/categorylist" class ="btn btn-warning">Hallinnoi liiketyyppejä</a></p>
 	
 	<div sec:authorize="hasAuthority('ADMIN')">
-	<h3>Rest:</h3>
-	<a href = "/movements" class ="btn btn-info btn-sm">Harjoitukset</a>
-	<a href = "/categories" class ="btn btn-info btn-sm">Tyypit</a>
-	<a href = "/appusers" class ="btn btn-info btn-sm">Käyttäjät</a>
+		<h3>Rest:</h3>
+			<a href = "/movements" class ="btn btn-info btn-sm">Harjoitukset</a>
+			<a href = "/categories" class ="btn btn-info btn-sm">Tyypit</a>
+		<a href = "/appusers" class ="btn btn-info btn-sm">Käyttäjät</a>
 	</div>
-	</div>
+</div>
 </body>
 </html>

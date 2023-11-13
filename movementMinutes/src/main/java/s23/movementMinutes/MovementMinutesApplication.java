@@ -28,9 +28,9 @@ public class MovementMinutesApplication {
 	@Bean
 	public CommandLineRunner demo(MovementRepository moveRepository, CategoryRepository catRepository, IntensityRepository inteRepository, AppUserRepository userRepository) {
 		return (args) -> {
-			userRepository.save(new AppUser("user1", "user1@test.fi", "$2a$10$n92RNo7mvAtFHILGdzsA/Oa1fKuWdIT5pe2VZVSXSnUOsYy35mmr6", "USER"));
-			userRepository.save(new AppUser("user2", "user2@test.fi", "$2a$10$aQqLKZGvhjzQrijtQxp2qeX.hNJiko26NCJ0/.nIC01eJR9tSo7BG", "USER"));
-			userRepository.save(new AppUser("admin", "admin@test.fi", "$2a$10$45kuUqsr1dIvv.ViLupVEOKxSNdY07Ls4pYe1G8MZEK1To95ljQ.y", "ADMIN"));
+			userRepository.save(new AppUser("user1", "$2a$10$n92RNo7mvAtFHILGdzsA/Oa1fKuWdIT5pe2VZVSXSnUOsYy35mmr6", "USER"));
+			userRepository.save(new AppUser("user2", "$2a$10$aQqLKZGvhjzQrijtQxp2qeX.hNJiko26NCJ0/.nIC01eJR9tSo7BG", "USER"));
+			userRepository.save(new AppUser("admin", "$2a$10$45kuUqsr1dIvv.ViLupVEOKxSNdY07Ls4pYe1G8MZEK1To95ljQ.y", "ADMIN"));
 			
 			catRepository.save(new Category("Arkiliikunta"));
 			catRepository.save(new Category("Kestävyysliikunta"));

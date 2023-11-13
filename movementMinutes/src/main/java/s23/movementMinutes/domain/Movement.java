@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
@@ -26,14 +27,16 @@ public class Movement {
     @PastOrPresent(message = "Toteutunut liike ei voi olla tulevaisuudessa.")
     private Date date;
     
+    @NotEmpty(message = "Lisää aloitusaika.")
 	private String startTime;
 	
+    @Size(min = 3, max= 20, message = "Lisää harjoituksen liike." )
 	private String exercise;
 	
 	@Min(value = 5, message = "Pienin arvo voi olla 5 minuuttia.")
 	private int minutes;
 	
-	@Size(min = 0, max= 20, message = "Voit käyttää 20 merkkiä." )
+	@Size(min = 0, max= 20, message = "Voit käyttää 20 merkkiä.")
 	private String comment;
 
 	@ManyToOne

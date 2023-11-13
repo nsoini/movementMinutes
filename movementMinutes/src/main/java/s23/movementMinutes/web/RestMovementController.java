@@ -25,7 +25,7 @@ public class RestMovementController {
 	}
 	
 	//add new movement
-	@PostMapping("movements")
+	@PostMapping("/movements")
 	Movement newMovement(@RequestBody Movement newMovement) {
 		return moveRepository.save(newMovement);
 	}

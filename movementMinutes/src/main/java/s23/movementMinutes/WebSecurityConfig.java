@@ -26,6 +26,7 @@ public class WebSecurityConfig {
 		http
 			.authorizeHttpRequests( authorize -> authorize
 					.requestMatchers(antMatcher("/home")).permitAll()
+					.requestMatchers(antMatcher("/signup")).permitAll()
 					.requestMatchers(antMatcher("/css/**")).permitAll()
 					.requestMatchers(antMatcher("/h2-console/**")).permitAll()
 					.anyRequest().authenticated()

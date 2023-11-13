@@ -37,19 +37,6 @@ public class MovementController {
 	@Autowired 
 	private AppUserRepository userRepository;
 	
-	//show home page
-	@RequestMapping(value = "/home")
-	public String home( ) {
-		return "/home";
-	}
-	
-	//list all movements
-	@RequestMapping(value="/login")
-	public String login() {
-		return "login";
-	}
-	
-	
 	//list all movements
 	@GetMapping(value = "/movementlist")
 	public String listMovements(Model model, @AuthenticationPrincipal UserDetails currentUser ) {
@@ -70,6 +57,7 @@ public class MovementController {
 		model.addAttribute("movement", moveRepository.findById(moveId));
 		model.addAttribute("categorys", catRepository.findAll());
 		model.addAttribute("intensitys", inteRepository.findAll());
+		model.addAttribute("users", userRepository.findAll());
 		return "editmovement";
 	}
 	
@@ -87,15 +75,14 @@ public class MovementController {
 	public String addMovement(Model model) {
 		model.addAttribute("movement", new Movement());
 		model.addAttribute("categorys", catRepository.findAll());
-		model.addAttribute("intens"
-				+ "itys", inteRepository.findAll());
+		model.addAttribute("intensitys", inteRepository.findAll());
+		model.addAttribute("users", userRepository.findAll());
 		return "addmovement";
 	}
 	
 	//save a movement
 	@PostMapping(value = "/save")
 	public String saveMovement(@Valid @ModelAttribute("movement") Movement movement, BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails currentUser ) {	
-		System.out.println("Received date: " + movement.getDate());
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("movement", movement);
 			model.addAttribute("categorys", catRepository.findAll());
@@ -103,9 +90,26 @@ public class MovementController {
 			return "addmovement";
 		}
 		AppUser user = (AppUser) userRepository.findByUsername(currentUser.getUsername());
+		if (currentUser.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
+			moveRepository.save(movement);
+			return "redirect:/movementlist";
+		}else {
 		movement.setAppuser(user);
 		moveRepository.save(movement);
 		return "redirect:/movementlist";
 	}
+	}
 
+		//show home page
+		@RequestMapping(value = "/home")
+		public String home( ) {
+			return "/home";
+		}
+		
+		//show login page
+		@RequestMapping(value="/login")
+		public String login() {
+			return "login";
+		}		
+	
 }

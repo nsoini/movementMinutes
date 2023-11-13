@@ -3,12 +3,14 @@
 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Lisää uusi harjoitus</title>
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 
 <body>
 <div class ="container" >
+	
 	<div class="row">
 		<div class ="col-md-4">
 	 		<p>Olet kirjautunut käyttäjänimellä <span sec:authentication="name"></span></p>
@@ -21,7 +23,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 	</div>
 </div>
 	
-	<div class="container">
+<div class="container">
 	
 	<h3>Lisää uusi harjoitus</h3>
 	
@@ -29,49 +31,75 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 		<form th:object = "${movement}" th:action = "@{save}" action = "#" method = "post" >
 			
 			<label for = "date">Päivä</label>
-			<input type = "date" id = "date" th:field = "*{date}"/>
-			<div th:if="${#fields.hasErrors('date')}" th:errors="*{date}" >
-				<p th:each="${#fields.hasErrors('date')}" th:text="${error}"></p> 
-			</div>
+				<input type = "date" id = "date" th:field = "*{date}"/>
+					<div th:if="${#fields.hasErrors('date')}" th:errors="*{date}" >
+						<p th:each="${#fields.hasErrors('date')}" th:text="${error}"></p> 
+					</div>
+			
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
-			<label for = "startTime">Aika (hh.mm)</label>
-			<input type = "time" id = "startTime" th:field = "*{startTime}"/>
+			<label for = "startTime">Aika</label>
+				<input type = "time" id = "startTime" th:field = "*{startTime}"/>
+					<div th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}" >
+						<p th:each="${#fields.hasErrors('startTime')}" th:text="${error}"></p>
+					</div>
+			
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 			<label for = "exercise">Liike </label>
+			
 			<div style="clear: both; display: block; "></div>
+			
 			<input type = "text" id = "exercise" th:field = "*{exercise}"/>
-			<div th:if="${#fields.hasErrors('exercise')}" th:errors="*{exercise}" >
-			<p th:each="${#fields.hasErrors('exercise')}" th:text="${error}"></p></div>
+				<div th:if="${#fields.hasErrors('exercise')}" th:errors="*{exercise}" >
+					<p th:each="${#fields.hasErrors('exercise')}" th:text="${error}"></p></div>
+			
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 			<label for = "catList">Tyyppi</label>
-			<select id = "catList" th:field = "*{category.catId}" class = "form-control">
-			<option th:each = "category: ${categorys}" th:value = "${category.catId}" th:text = "${category.name}"></option>
-			</select>
+				<select id = "catList" th:field = "*{category.catId}" class = "form-control">
+					<option th:each = "category: ${categorys}" th:value = "${category.catId}" th:text = "${category.name}"></option>
+				</select>
+			
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 			<label for = "inteList">Teho</label>
-			<select id = "inteList" th:field = "*{intensity.intId}" class = "form-control">
-			<option th:each = "intensity: ${intensitys}" th:value = "${intensity.intId}" th:text = "${intensity.name}"></option>
-			</select>
+				<select id = "inteList" th:field = "*{intensity.intId}" class = "form-control">
+					<option th:each = "intensity: ${intensitys}" th:value = "${intensity.intId}" th:text = "${intensity.name}"></option>
+				</select>
+			
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 			<label for = "minutes">Minuutit</label>
+			
 			<div style="clear: both; display: block; "></div>
+			
 			<input type = "text" id = "minutes" th:field = "*{minutes}"/>
-			<div th:if="${#fields.hasErrors('minutes')}" th:errors="*{minutes}" >
-				<p th:each="${#fields.hasErrors('minutes')}" th:text="${error}"></p> 
-			</div>
+				<div th:if="${#fields.hasErrors('minutes')}" th:errors="*{minutes}" >
+					<p th:each="${#fields.hasErrors('minutes')}" th:text="${error}"></p> 
+				</div>
+			
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 			<label for = "comment">Fiilis</label>
+			
 			<div style="clear: both; display: block; "></div>
+			
 			<input type = "text" id = "comment" th:field = "*{comment}"/>
+			
 			<div th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" >
 				<p th:each="${#fields.hasErrors('comment')}" th:text="${error}"></p> 
 			</div>
+			
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<div sec:authorize="hasAuthority('ADMIN')">
+				<label for = "userlist">Käyttäjä</label>
+					<select id = "userlist" th:field = "*{appuser.id}" class = "form-control">
+						<option th:each = "appuser: ${users}" th:value = "${appuser.id}" th:text = "${appuser.username}"></option>
+					</select>
+			</div>
+			
 			<div style="clear: both; display: block; height: 10px;"></div>
 		
 			<input type = "submit" value = "Tallenna" class="btn btn-success"/>
