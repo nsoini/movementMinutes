@@ -12,9 +12,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
 @Entity
+@Table(name="appUser")
 public class AppUser {
 	
 	@Id
@@ -26,8 +28,10 @@ public class AppUser {
 	@Column(name = "username", nullable = false, unique = true)
 	private String username;
 	
+	@Column(name = "password", nullable = false)
 	private String passwordHash;
 	
+	@Column(name = "role", nullable = false)
 	private String role;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "appuser")

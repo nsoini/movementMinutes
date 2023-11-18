@@ -5,38 +5,47 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
 @Entity
+@Table(name="movement")
 public class Movement {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
 	
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @PastOrPresent(message = "Toteutunut liike ei voi olla tulevaisuudessa.")
+    @Column(name = "date", nullable = false)
     private Date date;
     
     @NotEmpty(message = "Lisää aloitusaika.")
+    @Column(name = "startTime", nullable = false)
 	private String startTime;
 	
     @Size(min = 3, max= 20, message = "Lisää harjoituksen liike." )
-	private String exercise;
+    @Column(name = "exercise", nullable = false)
+    private String exercise;
 	
 	@Min(value = 5, message = "Pienin arvo voi olla 5 minuuttia.")
+	@Column(name = "minutes", nullable = false)
 	private int minutes;
 	
 	@Size(min = 0, max= 20, message = "Voit käyttää 20 merkkiä.")
+	@Column(name = "comment")
 	private String comment;
 
 	@ManyToOne

@@ -87,6 +87,7 @@ public class MovementController {
 			model.addAttribute("movement", movement);
 			model.addAttribute("categorys", catRepository.findAll());
 			model.addAttribute("intensitys", inteRepository.findAll());
+			model.addAttribute("users", userRepository.findAll());
 			return "addmovement";
 		}
 		AppUser user = (AppUser) userRepository.findByUsername(currentUser.getUsername());
